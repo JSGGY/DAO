@@ -1,91 +1,80 @@
 package UserInterface.Form;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import UserInterface.CustomerControl.SebButton;
 
-public class MainForm extends JFrame {
-    JPanel menuPanel, imagePanel;
+public class MainForm extends JPanel {
+    SebButton btnOp1 = new SebButton("Iniciar Sesión"),
+            btnOp2 = new SebButton("Crear Cuenta");
+    private JLabel background; // Etiqueta para la imagen de fondo
 
-    public MainForm(String tilteApp) {
-        setTitle(tilteApp);
-        setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public MainForm() {
 
-        menuPanel = createMenuPanel();
-        imagePanel = new LoginPanel();
-        createImagePanel();
+        customizeComponent();
+        btnOp1.addActionListener(e -> showPatPnlPersonaSexo());
 
-        // Crear un contenedor para los dos paneles usando BorderLayout
-        Container container = getContentPane();
-        container.setLayout(new BorderLayout());
-
-        // Agregar los paneles al contenedor
-        container.add(menuPanel, BorderLayout.WEST);
-        container.add(imagePanel, BorderLayout.CENTER);
-        setVisible(true);
+        btnOp2.addActionListener(e -> btnOp2Click());
     }
 
-    private JPanel createMenuPanel() {
-        JPanel menuPanel = new JPanel();
-        menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-
-        SebButton button1 = new SebButton("Opción 1");
-        SebButton button2 = new SebButton("Opción 2");
-
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para la opción 1
-                JOptionPane.showMessageDialog(MainForm.this, "Seleccionaste Opción 1");
-            }
-        });
-
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para la opción 2
-                JOptionPane.showMessageDialog(MainForm.this, "Seleccionaste Opción 2");
-            }
-        });
-
-        menuPanel.add(button1);
-        menuPanel.add(button2);
-
-        return menuPanel;
-    }
-
-    private JPanel createImagePanel() {
-        JPanel imagePanel = new JPanel();
-
-        // Asegúrate de tener una imagen llamada "sample_image.jpg" en la misma carpeta
-        // que tu código
-        String imagePath = "/UserInterface/Resource/Img/Splah.png";
-
+    private void showPatPnlPersonaSexo() {
         try {
-            URL imageURL = SplashScreenForm.class.getResource("/UserInterface/Resource/Img/IABot.png");
-            ImageIcon imageIcon = new ImageIcon(imageURL); // new ImageIcon(new File(imagePath).getCanonicalPath());
-            JLabel label = new JLabel(imageIcon);
-            imagePanel.add(label, BorderLayout.CENTER);
-        } catch (Exception e) {
-            e.printStackTrace();
+            removeAll();
+            add(new LoginPanel());
+            revalidate();
+            repaint();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar PatPnlPersonaSexo",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-
-        return imagePanel;
     }
 
+    private void btnOp2Click() {
+        JOptionPane.showMessageDialog(this, "Seleccionaste Opción 3");
+
+    }
+
+    private void btnOp3Click() {
+        JOptionPane.showMessageDialog(this, "Seleccionaste Opción 3");
+    }
+
+    private void customizeComponent() {
+        setLayout(new BorderLayout()); // Establece el diseño del MainForm como BorderLayout
+
+        // Carga la imagen de fondo
+        ImageIcon backgroundImage = new ImageIcon(
+                "src\\Resource\\Img\\ilustracion-pareja-dibujos-animados-dia-san-valentin_82446-122.jpg"); // Cambia la
+        // ruta por
+        // la
+        // ubicación
+        // de tu imagen
+        background = new JLabel(backgroundImage);
+
+        // Establece el tamaño del fondo para que coincida con el tamaño del MainForm
+        background.setPreferredSize(new Dimension(getWidth(), getHeight()));
+
+        // Establece el diseño del fondo como BorderLayout para que cubra todo el
+        // MainForm
+        background.setLayout(new BorderLayout());
+
+        // Agrega los botones al fondo
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setOpaque(false); // Hace que el panel de botones sea transparente
+        buttonsPanel.add(btnOp1);
+        buttonsPanel.add(btnOp2);
+
+        // Agrega el panel de botones al centro del fondo
+        background.add(buttonsPanel, BorderLayout.CENTER);
+
+        // Agrega el fondo al MainForm
+        add(background);
+    }
 }
