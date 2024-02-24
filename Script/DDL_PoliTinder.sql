@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS PersonaSexo;
 CREATE TABLE RegaloTipo (
     IdRegaloTipo INTEGER PRIMARY KEY AUTOINCREMENT,
     Nombre TEXT NOT NULL UNIQUE,
+    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
     Observacion TEXT,
     FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
     FechaModifica DATE
@@ -23,6 +24,7 @@ CREATE TABLE RegaloTipo (
 CREATE TABLE PersonaSexo (
     IdPersonaSexo INTEGER PRIMARY KEY AUTOINCREMENT,
     Nombre TEXT NOT NULL UNIQUE,
+    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
     FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
     FechaModifica DATE
 );
@@ -30,6 +32,7 @@ CREATE TABLE PersonaSexo (
 CREATE TABLE RelacionTipo (
     IdRelacionTipo INTEGER PRIMARY KEY AUTOINCREMENT,
     Nombre TEXT NOT NULL UNIQUE,
+    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
     FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
     FechaModifica DATE
 );
@@ -38,6 +41,7 @@ CREATE TABLE PersonaRol (
     IdPersonaRol INTEGER PRIMARY KEY AUTOINCREMENT,
     IdPersonaRolPadre INTEGER,
     Nombre TEXT NOT NULL UNIQUE,
+    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
     FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
     FechaModifica DATE
 );
@@ -45,6 +49,7 @@ CREATE TABLE PersonaRol (
 CREATE TABLE Persona (
     IdPersona INTEGER PRIMARY KEY AUTOINCREMENT,
     Nombre TEXT NOT NULL,
+    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
     IdPersonaRol INTEGER REFERENCES PersonaRol (IdPersonaRol),
     IdPersonaSexo INTEGER REFERENCES PersonaSexo (IdPersonaSexo),
     Cedula TEXT,
@@ -56,6 +61,7 @@ CREATE TABLE Regalo (
     IdRegalo INTEGER PRIMARY KEY AUTOINCREMENT,
     IdRelacionTipo INTEGER REFERENCES RelacionTipo (IdRelacionTipo),
     Nombre TEXT NOT NULL UNIQUE,
+    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
     Stock INTEGER,
     Precio DOUBLE,
     FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
@@ -65,6 +71,7 @@ CREATE TABLE Regalo (
 CREATE TABLE Relacion (
     IdRelacion INTEGER PRIMARY KEY AUTOINCREMENT,
     IdRelacionTipo INTEGER,
+    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
     IdPersona1 INTEGER REFERENCES Persona (IdPersona),
     IdPersona2 INTEGER REFERENCES Persona (IdPersona),
     FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
@@ -74,6 +81,7 @@ CREATE TABLE Relacion (
 CREATE TABLE Cita (
     IdCita INTEGER PRIMARY KEY AUTOINCREMENT,
     IdPersona1 INTEGER REFERENCES Persona (IdPersona),
+    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
     IdPersona2 INTEGER REFERENCES Persona (IdPersona),
     Nombre TEXT NOT NULL UNIQUE,
     FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
@@ -83,6 +91,7 @@ CREATE TABLE Cita (
 CREATE TABLE RegaloEnvio (
     IdRegaloEnvio INTEGER PRIMARY KEY AUTOINCREMENT,
     IdRegalo INTEGER REFERENCES Regalo(IdRegalo),
+    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
     IdPersonaEnvia INTEGER REFERENCES Persona(IdPersona),
     IdPersonaRecibe INTEGER REFERENCES Persona(IdPersona),
     IdPersonaReparte INTEGER REFERENCES Persona(IdPersona),
