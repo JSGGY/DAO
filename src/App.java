@@ -1,5 +1,7 @@
+import UserInterface.Form.MainForm;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        MainForm frmMain = new MainForm("IABot");
     }
 }
