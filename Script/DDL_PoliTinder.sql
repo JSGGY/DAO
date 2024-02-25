@@ -9,6 +9,16 @@ DROP TABLE IF EXISTS Cita;
 DROP TABLE IF EXISTS RelacionTipo;--
 DROP TABLE IF EXISTS PersonaRol;--
 DROP TABLE IF EXISTS PersonaSexo;--
+DROP TABLE IF EXISTS UsuariosSistema;
+
+CREATE TABLE UsuariosSistema (
+    IdUsuarioSistema INTEGER PRIMARY KEY AUTOINCREMENT,
+    Usuario           TEXT NOT NULL UNIQUE REFERENCES Persona(IdPersona),
+    Contraseña       TEXT NOT NULL,
+    Estado           VARCHAR(1)  NOT NULL DEFAULT('A'),
+    FechaCrea        DATE DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica    DATE
+)
 
 CREATE TABLE RegaloTipo (
     IdRegaloTipo INTEGER PRIMARY KEY AUTOINCREMENT,
