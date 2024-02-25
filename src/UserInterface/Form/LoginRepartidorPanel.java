@@ -1,4 +1,4 @@
-package UserInterface.Form;
+package UserInterface.Form; // Define el paquete donde se encuentra la clase LoginPanel
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import UserInterface.CustomerControl.SebButton;
 import UserInterface.CustomerControl.SebLabel;
 
-public class LoginPanel extends JPanel {
+public class LoginRepartidorPanel extends JPanel {
 
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -25,7 +25,7 @@ public class LoginPanel extends JPanel {
     private Image backgroundImage;
     private SebButton btnRegresar;
 
-    public LoginPanel() {
+    public LoginRepartidorPanel() {
         initializeComponents();
         setupLayout();
         setupActions();
@@ -57,6 +57,7 @@ public class LoginPanel extends JPanel {
         panelRegresar.setOpaque(false); // Hacer transparente el panel
 
         panelRegresar.add(btnRegresar); // Agregar el botón "Regresar" al panel
+
         add(panelRegresar, BorderLayout.SOUTH);
     }
 
@@ -67,16 +68,16 @@ public class LoginPanel extends JPanel {
                 String username = usernameField.getText();
                 char[] password = passwordField.getPassword();
 
-                JOptionPane.showMessageDialog(LoginPanel.this,
+                JOptionPane.showMessageDialog(LoginRepartidorPanel.this,
                         "Usuario: " + username + "\nContraseña: " + new String(password),
                         "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
 
                 usernameField.setText("");
                 passwordField.setText("");
             }
-
         });
         btnRegresar.addActionListener(e -> RolPanel());
+
     }
 
     private void RolPanel() {
@@ -94,7 +95,7 @@ public class LoginPanel extends JPanel {
 
     private void loadImage() {
         ImageIcon imagenFondo = new ImageIcon(
-                "src\\Resource\\Img\\Screenshot 2024-02-24 184745.png");
+                "src\\Resource\\Img\\RepartidorFoto.png");
         backgroundImage = imagenFondo.getImage();
     }
 

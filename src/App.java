@@ -12,10 +12,7 @@ public class App {
         frame.pack();
         ImageIcon icon = new ImageIcon("src\\Resource\\Img\\png-transparent-heart-red-heart-thumbnail.png"); // Cambia
                                                                                                              // la ruta
-                                                                                                             // por la
-                                                                                                             // ubicación
-                                                                                                             // de tu
-                                                                                                             // logo
+        // logo
         frame.setIconImage(icon.getImage());
         frame.setSize(700, 700); // Por ejemplo, tamaño de 400x300 píxeles
         frame.setVisible(true);
