@@ -6,11 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 
-
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 
 import UserInterface.CustomerControl.SebButton;
 
@@ -42,7 +40,7 @@ public class RolPanel extends JPanel {
     private void setupLayout() {
         setLayout(new BorderLayout());
 
-        JPanel panerIncicioSesion = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
+        JPanel panerIncicioSesion = new JPanel(new FlowLayout(FlowLayout.CENTER, 300, 270));
         panerIncicioSesion.setOpaque(false);
         JPanel btnPanel = new JPanel();
         btnPanel.setOpaque(false); // Hace que el panel de botones sea transparente
