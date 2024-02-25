@@ -14,17 +14,33 @@ public class PersonaBL {
     public List<PersonaDTO> getAll() throws Exception{
         return pDAO.readAll();
     }
-    public PersonaDTO getById(int idPersona) throws Exception{
-        persona = pDAO.readBy(idPersona);
+    
+    public PersonaDTO getById(int IdPersona) throws Exception{
+        persona = pDAO.readBy(IdPersona);
         return persona;
     }
-    public boolean create(PersonaDTO personaDTO) throws Exception{   
-        return pDAO.create(personaDTO);
+    
+    public boolean add(String nombre, Integer IdPersonaRol, Integer IdPersonaSexo, String cedula) throws Exception{  
+        persona = new PersonaDTO(); 
+        persona.setNombre(nombre);
+        persona.setIdPersonaRol(IdPersonaRol);
+        persona.setIdPersonaSexo(IdPersonaSexo);
+        persona.setCedula(cedula);
+        return pDAO.create(persona);
     }
-    public boolean update(PersonaDTO personaDTO) throws Exception{
-        return pDAO.update(personaDTO);
+    
+    public boolean update(Integer IdPersona, String nombre, Integer IdPersonaRol, Integer IdPersonaSexo, String cedula, String fechaModifica) throws Exception{
+        persona = new PersonaDTO(); 
+        persona.setIdPersona(IdPersona);
+        persona.setNombre(nombre);
+        persona.setIdPersonaRol(IdPersonaRol);
+        persona.setIdPersonaSexo(IdPersonaSexo);
+        persona.setCedula(cedula);
+        persona.setFechaModifica(fechaModifica);
+        return pDAO.update(persona);
     }
-    public boolean delete(int idPersona) throws Exception{
-        return pDAO.delete(idPersona);
+    
+    public boolean delete(int IdPersona) throws Exception{
+        return pDAO.delete(IdPersona);
     }
 }
