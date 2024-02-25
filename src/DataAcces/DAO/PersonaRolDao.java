@@ -21,14 +21,7 @@ public class PersonaRolDao extends SQLiteDataHelper implements IDAO<PersonaRolDT
     @Override
     public PersonaRolDTO readBy(Integer id) throws Exception {
         PersonaRolDTO oS = new PersonaRolDTO();
-        String query =" SELECT IdPersonaRol  "
-                    +",IdPersonaRolPadre " 
-                    +",Estado        "
-                    +",Nombre        "
-                    +",FechaCrea           "
-                    +"FechaModifica"            
-                    +" FROM    PersonaRol   "
-                    +" WHERE   IdPersonaRol=   "+ id.toString() ;
+        String query =" SELECT * FROM  PersonaRol WHERE  IdPersonaRol=   "+ id.toString() ;
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    
@@ -51,14 +44,7 @@ public class PersonaRolDao extends SQLiteDataHelper implements IDAO<PersonaRolDT
 
     public List<PersonaRolDTO> readAll() throws Exception {
         List <PersonaRolDTO> lst = new ArrayList<>();
-         String query =" SELECT IdPersonaRol  "
-                        +",IdPersonaRolPadre " 
-                        +",Estado        "
-                        +",Nombre        "
-                        +",FechaCrea           "
-                        +"FechaModifica"            
-                        +" FROM    PersonaRol   "
-                        +" WHERE   Estado = 'A'  ";
+         String query =" SELECT * FROM  PersonaRol WHERE  Estado = 'A'  ";
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    

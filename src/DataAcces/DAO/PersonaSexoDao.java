@@ -21,13 +21,7 @@ public class PersonaSexoDao extends SQLiteDataHelper implements IDAO<PersonaSexo
     @Override
     public PersonaSexoDTO readBy(Integer id) throws Exception {
         PersonaSexoDTO oS = new PersonaSexoDTO();
-        String query =" SELECT IdPersonaSexo  "
-                    +",Nombre        "
-                    +",Estado        "
-                    +",FechaCrea           "
-                    +" FechaModifica"            
-                    +" FROM    PersonaSexo   "
-                    +" WHERE   IdPersonaSexo =   "+ id.toString() ;
+        String query =" SELECT IdPersonaSexo,Nombre,Estado,FechaCrea,FechaModifica FROM  PersonaSexo  WHERE   IdPersonaSexo =   "+ id.toString() ;
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    
@@ -49,13 +43,7 @@ public class PersonaSexoDao extends SQLiteDataHelper implements IDAO<PersonaSexo
 
     public List<PersonaSexoDTO> readAll() throws Exception {
         List <PersonaSexoDTO> lst = new ArrayList<>();
-         String query =" SELECT IdPersonaSexo  "
-                        +",Nombre        "
-                        +",Estado        "
-                        +",FechaCrea           "
-                        +" FechaModifica"            
-                        +" FROM    PersonaSexo   "
-                        +" WHERE   Estado = 'A'  ";
+         String query =" SELECT IdPersonaSexo,Nombre,Estado,FechaCrea,FechaModifica FROM PersonaSexo WHERE Estado = 'A'";
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    

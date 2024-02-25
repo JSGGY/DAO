@@ -20,14 +20,7 @@ public class UsuarioSistemDAO extends SQLiteDataHelper implements IDAO<UsuarioSi
 @Override
     public UsuarioSistemaDTO readBy(Integer id) throws Exception {
         UsuarioSistemaDTO oS = new UsuarioSistemaDTO();
-        String query =" SELECT IdUsuarioSistema "
-                    +",Usuario       "
-                    +",Contraseña        "
-                    +",Estado       "
-                    +",FechaCrea"  
-                    +",FechaModifica"                      
-                    +" FROM    UsuarioSistema   "
-                    +" WHERE   IdUsuarioSistema =   "+ id.toString() ;
+        String query =" SELECT * FROM UsuarioSistema WHERE IdUsuarioSistema =   "+ id.toString() ;
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    
@@ -46,14 +39,7 @@ public class UsuarioSistemDAO extends SQLiteDataHelper implements IDAO<UsuarioSi
 
     public List<UsuarioSistemaDTO> readAll() throws Exception {
         List <UsuarioSistemaDTO> lst = new ArrayList<>();
-         String query =" SELECT IdUsuarioSistema "
-         +",Usuario       "
-         +",Contraseña        "
-         +",Estado       "
-         +",FechaCrea"  
-         +",FechaModifica"                      
-         +" FROM    UsuarioSistema   "
-         +" WHERE   Estado =  'A'  ";
+         String query =" SELECT *FROM UsuarioSistema WHERE Estado =  'A'  ";
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    

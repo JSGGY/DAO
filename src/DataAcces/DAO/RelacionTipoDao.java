@@ -21,13 +21,7 @@ public class RelacionTipoDao extends SQLiteDataHelper implements IDAO<RelacionTi
     @Override
     public RelacionTipoDTO readBy(Integer id) throws Exception {
         RelacionTipoDTO oS = new RelacionTipoDTO();
-        String query =" SELECT IdRelacionTipo  "
-                    +",Nombre        "
-                    +",Estado        "
-                    +",FechaCrea        "
-                    +" FechaModifica"            
-                    +" FROM    RelacionTipo   "
-                    +" WHERE   IdRelacionTipo =   "+ id.toString() ;
+        String query =" SELECT * FROM    RelacionTipo WHERE  IdRelacionTipo =   "+ id.toString() ;
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    
@@ -50,13 +44,7 @@ public class RelacionTipoDao extends SQLiteDataHelper implements IDAO<RelacionTi
 
     public List<RelacionTipoDTO> readAll() throws Exception {
         List <RelacionTipoDTO> lst = new ArrayList<>();
-         String query =" SELECT IdRelacionTipo  "
-                        +",Nombre        "
-                        +",Estado        "
-                        +",FechaCrea        "
-                        +" FechaModifica"            
-                        +" FROM    RelacionTipo   "
-                        +" WHERE   Estado = 'A'  ";
+         String query =" SELECT * FROM   RelacionTipo WHERE   Estado = 'A'  ";
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    

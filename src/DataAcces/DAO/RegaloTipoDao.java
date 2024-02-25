@@ -21,14 +21,7 @@ public class RegaloTipoDao extends SQLiteDataHelper implements IDAO<RegaloTipoDT
     @Override
     public RegaloTipoDTO readBy(Integer id) throws Exception {
         RegaloTipoDTO oS = new RegaloTipoDTO();
-        String query =" SELECT IdRegaloTipo  "
-                    +",Nombre        "
-                    +",Estado        "
-                    +",Observacion       "
-                    +",FechaCrea           "
-                    +" FechaModifica"            
-                    +" FROM    RegaloTipo   "
-                    +" WHERE   IdRegaloTipo =   "+ id.toString() ;
+        String query =" SELECT * FROM    RegaloTipo WHERE IdRegaloTipo =   "+ id.toString() ;
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    
@@ -51,14 +44,7 @@ public class RegaloTipoDao extends SQLiteDataHelper implements IDAO<RegaloTipoDT
 
     public List<RegaloTipoDTO> readAll() throws Exception {
         List <RegaloTipoDTO> lst = new ArrayList<>();
-         String query =" SELECT IdRegaloTipo  "
-                        +",Nombre        "
-                        +",Estado        "
-                        +",Observacion       "
-                        +",FechaCrea           "
-                        +" FechaModifica"            
-                        +" FROM    RegaloTipo   "
-                        +" WHERE   Estado = 'A'  ";
+         String query =" SELECT * FROM    RegaloTipo WHERE   Estado = 'A'  ";
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    

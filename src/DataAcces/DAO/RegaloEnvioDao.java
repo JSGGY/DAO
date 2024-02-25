@@ -21,19 +21,7 @@ public class RegaloEnvioDao extends SQLiteDataHelper implements IDAO<RegaloEnvio
 @Override
     public RegaloEnvioDTO readBy(Integer id) throws Exception {
         RegaloEnvioDTO oS = new RegaloEnvioDTO();
-        String query =" SELECT IdRegaloEnvio"  
-                    + ",IdRegaloEnvio"
-                    + ",IdRegalo"
-                    + ",Estado"
-                    + ",IdPersonaEnvia"
-                    + ",IdPersonaRecibe"
-                    + ",IdPersonaReparte"
-                    + ",Nombre"
-                    + ",FechaCrea"
-                    + ",FechaModifica"
-                    + ", FechaEnvio"
-                    +" FROM    RegaloEnvio "
-                    + " WHERE   IdRegaloEnvio =   " + id.toString() ;
+        String query =" SELECT * FROM   RegaloEnvio WHERE  IdRegaloEnvio =   " + id.toString() ;
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    
@@ -53,19 +41,7 @@ public class RegaloEnvioDao extends SQLiteDataHelper implements IDAO<RegaloEnvio
     public List<RegaloEnvioDTO> readAll() throws Exception {
         List <RegaloEnvioDTO> lst = new ArrayList<>();
          String query =
-         " SELECT IdRegaloEnvio"  
-                    + ",IdRegaloEnvio"
-                    + ",IdRegalo"
-                    + ",Estado"
-                    + ",IdPersonaEnvia"
-                    + ",IdPersonaRecibe"
-                    + ",IdPersonaReparte"
-                    + ",Nombre"
-                    + ",FechaCrea"
-                    + ",FechaModifica"
-                    + ", FechaEnvio"
-                    +" FROM    RegaloEnvio "
-                    + " WHERE  Estado = 'A'" ;
+         " SELECT * FROM  RegaloEnvio WHERE  Estado = 'A'" ;
         try {
             Connection conn = openConnection();         // conectar a DB     
             Statement  stmt = conn.createStatement();   // CRUD : select * ...    
