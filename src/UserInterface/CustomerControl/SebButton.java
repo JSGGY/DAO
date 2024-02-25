@@ -36,7 +36,7 @@ public class SebButton extends JButton implements MouseListener {
         setContentAreaFilled(false); // Desactiva la pintura del área de contenido
         setHorizontalAlignment(SwingConstants.CENTER); // Alinea el texto al centro
         setCursor(new Cursor(Cursor.HAND_CURSOR)); // Establece el cursor del mouse a una mano
-        setFont(new Font("Comic Sans MS", Font.BOLD, 14)); // Establece la fuente del texto del botón
+        setFont(new Font("Comic Sans MS", Font.BOLD, 20)); // Establece la fuente del texto del botón
         setForeground(Color.WHITE); // Establece el color del texto
         setBackground(new Color(255, 153, 153)); // Establece el color de fondo del botón (rojo claro)
         setOpaque(false); // Hace que el botón sea transparente
@@ -49,7 +49,6 @@ public class SebButton extends JButton implements MouseListener {
         Graphics2D g2d = (Graphics2D) g.create(); // Crea un contexto gráfico 2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // Activa el
                                                                                                   // antialiasing
-
         int width = getWidth(); // Obtiene el ancho del botón
         int height = getHeight(); // Obtiene el alto del botón
 

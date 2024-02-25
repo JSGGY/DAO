@@ -1,24 +1,17 @@
 -- database: ../Data/bd.sqlite
 
-DROP TABLE IF EXISTS Persona;--
-DROP TABLE IF EXISTS Relacion;--
-DROP TABLE IF EXISTS Regalo;--
-DROP TABLE IF EXISTS RegaloEnvio;--
-DROP TABLE IF EXISTS RegaloTipo;--
-DROP TABLE IF EXISTS Cita;
-DROP TABLE IF EXISTS RelacionTipo;--
-DROP TABLE IF EXISTS PersonaRol;--
-DROP TABLE IF EXISTS PersonaSexo;--
 DROP TABLE IF EXISTS UsuariosSistema;
+DROP TABLE IF EXISTS Relacion;
+DROP TABLE IF EXISTS Cita;
+DROP TABLE IF EXISTS RegaloEnvio;
+DROP TABLE IF EXISTS Regalo;
+DROP TABLE IF EXISTS Persona;
+DROP TABLE IF EXISTS PersonaRol;
+DROP TABLE IF EXISTS PersonaSexo;
+DROP TABLE IF EXISTS RelacionTipo;
+DROP TABLE IF EXISTS RegaloTipo;
 
-CREATE TABLE UsuariosSistema (
-    IdUsuarioSistema INTEGER PRIMARY KEY AUTOINCREMENT,
-    Usuario           TEXT NOT NULL UNIQUE REFERENCES Persona(IdPersona),
-    Contraseña       TEXT NOT NULL,
-    Estado           VARCHAR(1)  NOT NULL DEFAULT('A'),
-    FechaCrea        DATE DEFAULT CURRENT_TIMESTAMP,
-    FechaModifica    DATE
-)
+
 
 CREATE TABLE RegaloTipo (
     IdRegaloTipo INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -107,4 +100,13 @@ CREATE TABLE RegaloEnvio (
     FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
     FechaModifica DATE,
     FechaEnvio DATE
+);
+
+CREATE TABLE UsuariosSistema (
+    IdUsuarioSistema INTEGER PRIMARY KEY AUTOINCREMENT,
+    IdPersona        INTEGER NOT NULL UNIQUE REFERENCES Persona(IdPersona),
+    Contraseña       TEXT NOT NULL,
+    Estado           VARCHAR(1)  NOT NULL DEFAULT('A'),
+    FechaCrea        DATE DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica    DATE
 );
