@@ -5,7 +5,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-// Clase que define una etiqueta de texto personalizada con estilo infantil
+// Clase qu define una etiqueta de texto personalizada con estilo infantil
 public class SebLabel extends JLabel {
 
     private String label = ""; // Texto de la etiqueta

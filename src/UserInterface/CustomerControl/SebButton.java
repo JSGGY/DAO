@@ -49,7 +49,6 @@ public class SebButton extends JButton implements MouseListener {
         Graphics2D g2d = (Graphics2D) g.create(); // Crea un contexto gráfico 2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // Activa el
                                                                                                   // antialiasing
-
         int width = getWidth(); // Obtiene el ancho del botón
         int height = getHeight(); // Obtiene el alto del botón
 

@@ -5,17 +5,14 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+
 
 import UserInterface.CustomerControl.SebButton;
-import UserInterface.CustomerControl.SebLabel;
 
 public class RolPanel extends JPanel {
 

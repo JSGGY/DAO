@@ -1,4 +1,4 @@
-package UserInterface.Form; // Define el paquete donde se encuentra la clase LoginPanel
+package UserInterface.Form;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -57,7 +57,6 @@ public class LoginPanel extends JPanel {
         panelRegresar.setOpaque(false); // Hacer transparente el panel
 
         panelRegresar.add(btnRegresar); // Agregar el botón "Regresar" al panel
-
         add(panelRegresar, BorderLayout.SOUTH);
     }
 
