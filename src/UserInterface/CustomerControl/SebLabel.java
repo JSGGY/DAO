@@ -13,7 +13,7 @@ public class SebLabel extends JLabel {
     private int alignment = SwingConstants.LEFT; // Alineación del texto (por defecto a la izquierda)
     private Font font = new Font("Comic Sans MS", Font.BOLD, 26); // Fuente del texto (tipo de letra y tamaño)
 
-    // Constructor vacío
+    // Constructor vacio
     public SebLabel() {
         customizeLabel(); // Configura la apariencia de la etiqueta
     }
