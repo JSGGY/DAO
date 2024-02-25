@@ -9,9 +9,9 @@ import javax.swing.SwingConstants;
 public class SebLabel extends JLabel {
 
     private String label = ""; // Texto de la etiqueta
-    private Color color = Color.blue; // Color del texto (por defecto azul)
+    private Color color = new Color(255, 20, 147); // Color del texto (por defecto azul)
     private int alignment = SwingConstants.LEFT; // Alineación del texto (por defecto a la izquierda)
-    private Font font = new Font("Arial", Font.BOLD, 14); // Fuente del texto (tipo de letra y tamaño)
+    private Font font = new Font("Comic Sans MS", Font.BOLD, 26); // Fuente del texto (tipo de letra y tamaño)
 
     // Constructor vacío
     public SebLabel() {

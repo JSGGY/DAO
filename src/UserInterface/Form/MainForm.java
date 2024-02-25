@@ -12,22 +12,22 @@ import javax.swing.JPanel;
 import UserInterface.CustomerControl.SebButton;
 
 public class MainForm extends JPanel {
-    SebButton btnOp1 = new SebButton("Iniciar Sesión"),
-            btnOp2 = new SebButton("Crear Cuenta");
+    SebButton bton1 = new SebButton("Iniciar Sesión"),
+            bton2 = new SebButton("Crear Cuenta");
     private JLabel background; // Etiqueta para la imagen de fondo
 
     public MainForm() {
 
         customizeComponent();
-        btnOp1.addActionListener(e -> showPatPnlPersonaSexo());
+        bton1.addActionListener(e -> rolPanelIniciar());
 
-        btnOp2.addActionListener(e -> btnOp2Click());
+        bton2.addActionListener(e -> bton2Click());
     }
 
-    private void showPatPnlPersonaSexo() {
+    private void rolPanelIniciar() {
         try {
             removeAll();
-            add(new LoginPanel());
+            add(new RolPanel());
             revalidate();
             repaint();
         } catch (Exception ex) {
@@ -37,13 +37,9 @@ public class MainForm extends JPanel {
         }
     }
 
-    private void btnOp2Click() {
+    private void bton2Click() {
         JOptionPane.showMessageDialog(this, "Seleccionaste Opción 3");
 
-    }
-
-    private void btnOp3Click() {
-        JOptionPane.showMessageDialog(this, "Seleccionaste Opción 3");
     }
 
     private void customizeComponent() {
@@ -68,8 +64,8 @@ public class MainForm extends JPanel {
         // Agrega los botones al fondo
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false); // Hace que el panel de botones sea transparente
-        buttonsPanel.add(btnOp1);
-        buttonsPanel.add(btnOp2);
+        buttonsPanel.add(bton1);
+        buttonsPanel.add(bton2);
 
         // Agrega el panel de botones al centro del fondo
         background.add(buttonsPanel, BorderLayout.CENTER);

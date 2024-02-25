@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import UserInterface.CustomerControl.SebButton;
 import UserInterface.CustomerControl.SebLabel;
 
-public class LoginPanel extends JPanel {
+public class LoginAdminPanel extends JPanel {
 
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -26,11 +26,12 @@ public class LoginPanel extends JPanel {
     private Image backgroundImage;
     private SebButton btnRegresar;
 
-    public LoginPanel() {
+    public LoginAdminPanel() {
         initializeComponents();
         setupLayout();
         setupActions();
         loadImage();
+
     }
 
     private void initializeComponents() {
@@ -39,7 +40,6 @@ public class LoginPanel extends JPanel {
         loginButton = new SebButton("Login");
         loginButton.setPreferredSize(new Dimension(200, 50));
         btnRegresar = new SebButton("Regresar");
-
     }
 
     private void setupLayout() {
@@ -69,16 +69,16 @@ public class LoginPanel extends JPanel {
                 String username = usernameField.getText();
                 char[] password = passwordField.getPassword();
 
-                JOptionPane.showMessageDialog(LoginPanel.this,
+                JOptionPane.showMessageDialog(LoginAdminPanel.this,
                         "Usuario: " + username + "\nContraseña: " + new String(password),
                         "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
 
                 usernameField.setText("");
                 passwordField.setText("");
             }
-
         });
         btnRegresar.addActionListener(e -> RolPanel());
+
     }
 
     private void RolPanel() {
@@ -96,7 +96,7 @@ public class LoginPanel extends JPanel {
 
     private void loadImage() {
         ImageIcon imagenFondo = new ImageIcon(
-                "src\\Resource\\Img\\Screenshot 2024-02-24 184745.png");
+                "src\\Resource\\Img\\AdminFondo.png");
         backgroundImage = imagenFondo.getImage();
     }
 
