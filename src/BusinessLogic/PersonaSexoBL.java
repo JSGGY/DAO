@@ -18,11 +18,17 @@ public class PersonaSexoBL {
         personaSexo = psDAO.readBy(idPersonaSexo);
         return personaSexo;
     }
-    public boolean create(PersonaSexoDTO personaSexoDTO) throws Exception{   
-        return psDAO.create(personaSexoDTO);
+    public boolean add(String nombre) throws Exception{
+        personaSexo=new PersonaSexoDTO();
+        personaSexo.setNombre(nombre);
+        return psDAO.create(personaSexo);
     }
-    public boolean update(PersonaSexoDTO personaSexoDTO) throws Exception{
-        return psDAO.update(personaSexoDTO);
+    public boolean update(Integer idPersonaSexo, String nombre, String fechaModifica) throws Exception{
+        personaSexo=new PersonaSexoDTO();
+        personaSexo.setIdPersonaSexo(idPersonaSexo);
+        personaSexo.setNombre(nombre);
+        personaSexo.setFechaModifica(fechaModifica);
+        return psDAO.update(personaSexo);
     }
     public boolean delete(int idPersonaSexo) throws Exception{
         return psDAO.delete(idPersonaSexo);

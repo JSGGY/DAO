@@ -18,11 +18,19 @@ public class PersonaRolBL {
         personaRol = prDAO.readBy(idPersonaRol);
         return personaRol;
     }
-    public boolean create(PersonaRolDTO personaRolDTO) throws Exception{   
-        return prDAO.create(personaRolDTO);
+    public boolean add(Integer idPersonaRolPadre, String nombre) throws Exception{   
+        personaRol = new PersonaRolDTO();
+        personaRol.setIdPersonaRolPadre(idPersonaRolPadre);
+        personaRol.setNombre(nombre);
+        return prDAO.create(personaRol);
     }
-    public boolean update(PersonaRolDTO personaRolDTO) throws Exception{
-        return prDAO.update(personaRolDTO);
+    public boolean update(Integer idPersonaRol, Integer idPersonaRolPadre, String nombre, String fechaModifica) throws Exception{
+        personaRol = new PersonaRolDTO();
+        personaRol.setIdPersonaRol(idPersonaRol);
+        personaRol.setIdPersonaRolPadre(idPersonaRolPadre);
+        personaRol.setNombre(nombre);
+        personaRol.setFechaModifica(fechaModifica);
+        return prDAO.update(personaRol);
     }
     public boolean delete(int idPersonaRol) throws Exception{
         return prDAO.delete(idPersonaRol);
