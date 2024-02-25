@@ -38,8 +38,8 @@ public class RegaloEnvioBL {
         regaloEnvio.setIdPersonaRecibe(idPersonaRecibe);
         regaloEnvio.setIdPersonaReparte(idPersonaReparte);
         regaloEnvio.setNombre(nombre);
-        regaloEnvio.setFechaEnvio(fechaEnvio);
         regaloEnvio.setFechaModifica(fechaModifica);
+        regaloEnvio.setFechaEnvio(fechaEnvio);
         return reDAO.update(regaloEnvio);
     }
     public boolean delete(int idRegaloEnvio) throws Exception{
