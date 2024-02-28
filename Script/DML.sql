@@ -182,5 +182,10 @@ VALUES (
     (SELECT IdPersona FROM Persona WHERE IdPersonaRol = 3 ORDER BY RANDOM() LIMIT 1),
     (SELECT IdRegalo FROM Regalo ORDER BY RANDOM() LIMIT 1)
 );
+INSERT INTO UsuariosSistema (IdPersona, Contraseña, Estado, FechaModifica)
+VALUES (1, 'contraseña1', 'A', NULL),
+       (2, 'contraseña2', 'A', NULL),
+       (3, 'contraseña3', 'A', NULL);
+
 
  

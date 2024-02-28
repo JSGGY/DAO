@@ -37,7 +37,7 @@ public class MainForm extends JPanel {
     }
 
     private void bton2Click() {
-        JOptionPane.showMessageDialog(this, "Seleccionaste Opción 3");
+        JOptionPane.showMessageDialog(this, "Por el momento no puedes Crear una cuenta");
 
     }
 

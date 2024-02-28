@@ -1,4 +1,4 @@
-package UserInterface.Form; // Define el paquete donde se encuentra la clase LoginPanel
+package UserInterface.Form; // Define el paquete donde se encuentra la clase LoginAdminPanel
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -14,12 +15,15 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import BusinessLogic.PersonaBL;
+import BusinessLogic.UsuarioSistemaBL;
+import DataAcces.DTO.UsuarioSistemaDTO;
 import UserInterface.CustomerControl.SebButton;
 import UserInterface.CustomerControl.SebLabel;
 
 public class LoginAdminPanel extends JPanel {
 
-    private JTextField usernameField;
+    private JTextField usuarioField;
     private JPasswordField passwordField;
     private SebButton loginButton;
     private Image backgroundImage;
@@ -34,7 +38,7 @@ public class LoginAdminPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        usernameField = new JTextField(20);
+        usuarioField = new JTextField(20);
         passwordField = new JPasswordField(20);
         loginButton = new SebButton("Login");
         loginButton.setPreferredSize(new Dimension(200, 50));
@@ -47,7 +51,7 @@ public class LoginAdminPanel extends JPanel {
         JPanel panerIncicioSesion = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
         panerIncicioSesion.setOpaque(false);
         panerIncicioSesion.add(new SebLabel("Usuario:"));
-        panerIncicioSesion.add(usernameField);
+        panerIncicioSesion.add(usuarioField);
         panerIncicioSesion.add(new SebLabel("Contraseña:"));
         panerIncicioSesion.add(passwordField);
         panerIncicioSesion.add(loginButton);
@@ -65,19 +69,71 @@ public class LoginAdminPanel extends JPanel {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                char[] password = passwordField.getPassword();
+                String usuario = usuarioField.getText();
+                char[] passwordChars = passwordField.getPassword();
+                String contrasena = new String(passwordChars);
 
-                JOptionPane.showMessageDialog(LoginAdminPanel.this,
-                        "Usuario: " + username + "\nContraseña: " + new String(password),
-                        "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
+                // Aquí debes incluir la lógica para verificar el usuario y la contraseña
+                if (validarUsuario(usuario, contrasena)) {
+                    JOptionPane.showMessageDialog(LoginAdminPanel.this, "Login Exitoso", "Bienvenido",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    // Si la validación es exitosa, pasas al siguiente panel
+                    AdminPanel();
+                } else {
+                    JOptionPane.showMessageDialog(LoginAdminPanel.this, "Usuario o Contraseña incorrectos", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
 
-                usernameField.setText("");
+                usuarioField.setText("");
                 passwordField.setText("");
             }
+
         });
         btnRegresar.addActionListener(e -> RolPanel());
 
+    }
+
+    // Método para verificar el usuario y contraseña en la base de datos
+    private boolean validarUsuario(String usuario, String clave) {
+        try {
+
+            if (PersonaBL.getPersonaRol(Integer.parseInt(usuario)).toStringIdPersonaRol().equals("1")) {
+
+                // Obtener la lista de usuarios de la base de datos
+                ArrayList<UsuarioSistemaDTO> listaUsuarios = UsuarioSistemaBL.getUsuario();
+
+                // Iterar sobre la lista de usuarios
+                for (UsuarioSistemaDTO usuarioGuardado : listaUsuarios) {
+                    Integer idClaveBuscada = Integer.parseInt(usuarioGuardado.toStringIdPersona());
+                    // Obtener la contraseña almacenada para el usuario actual
+                    // Validar si el usuario ingresado coincide con algún usuario de la lista
+                    if (usuario.equals(usuarioGuardado.toStringIdPersona())
+                            && clave.equals(UsuarioSistemaBL.getClave(idClaveBuscada).toStringClave())) {
+                        // Si el usuario coincide y la contraseña es correcta, devolver true
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Si no se encontró ninguna coincidencia o la contraseña no es correcta,
+        // devolver false
+        return false;
+    }
+
+    private void AdminPanel() {
+        try {
+            removeAll();
+            add(new AdminPanel());
+            revalidate();
+            repaint();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar PatPnlPersonaSexo",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void RolPanel() {

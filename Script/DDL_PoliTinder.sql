@@ -48,14 +48,14 @@ CREATE TABLE PersonaRol (
 );
 
 CREATE TABLE Persona (
-    IdPersona INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nombre TEXT NOT NULL,
-    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
-    IdPersonaRol INTEGER REFERENCES PersonaRol (IdPersonaRol),
-    IdPersonaSexo INTEGER REFERENCES PersonaSexo (IdPersonaSexo),
-    Cedula TEXT,
-    FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
-    FechaModifica DATE
+    IdPersona           INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nombre          TEXT NOT NULL,
+    Estado          VARCHAR(1)  NOT NULL DEFAULT('A'),
+    IdPersonaRol    INTEGER REFERENCES PersonaRol (IdPersonaRol),
+    IdPersonaSexo   INTEGER REFERENCES PersonaSexo (IdPersonaSexo),
+    Cedula          TEXT,
+    FechaCrea       DATE DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica       DATE
 );
 
 CREATE TABLE Regalo (
@@ -70,36 +70,36 @@ CREATE TABLE Regalo (
 );
 
 CREATE TABLE Relacion (
-    IdRelacion INTEGER PRIMARY KEY AUTOINCREMENT,
+    IdRelacion      INTEGER PRIMARY KEY AUTOINCREMENT,
     IdRelacionTipo INTEGER,
     Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
-    IdPersona1 INTEGER REFERENCES Persona (IdPersona),
-    IdPersona2 INTEGER REFERENCES Persona (IdPersona),
-    FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
-    FechaModifica DATE
+    IdPersona1      INTEGER REFERENCES Persona (IdPersona),
+    IdPersona2          INTEGER REFERENCES Persona (IdPersona),
+    FechaCrea       DATE DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica        DATE
 );
 
 CREATE TABLE Cita (
-    IdCita INTEGER PRIMARY KEY AUTOINCREMENT,
-    IdPersona1 INTEGER REFERENCES Persona (IdPersona),
+    IdCita          INTEGER PRIMARY KEY AUTOINCREMENT,
+    IdPersona1      INTEGER REFERENCES Persona (IdPersona),
     Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
-    IdPersona2 INTEGER REFERENCES Persona (IdPersona),
-    Nombre TEXT NOT NULL UNIQUE,
-    FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
-    FechaModifica DATE
+    IdPersona2      INTEGER REFERENCES Persona (IdPersona),
+    Nombre          TEXT NOT NULL UNIQUE,
+    FechaCrea        DATE DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica   DATE
 );
 
 CREATE TABLE RegaloEnvio (
-    IdRegaloEnvio INTEGER PRIMARY KEY AUTOINCREMENT,
-    IdRegalo INTEGER REFERENCES Regalo(IdRegalo),
-    Estado         VARCHAR(1)  NOT NULL DEFAULT('A'),
-    IdPersonaEnvia INTEGER REFERENCES Persona(IdPersona),
-    IdPersonaRecibe INTEGER REFERENCES Persona(IdPersona),
-    IdPersonaReparte INTEGER REFERENCES Persona(IdPersona),
-    Nombre TEXT NOT NULL UNIQUE,
-    FechaCrea DATE DEFAULT CURRENT_TIMESTAMP,
-    FechaModifica DATE,
-    FechaEnvio DATE
+    IdRegaloEnvio   INTEGER PRIMARY KEY AUTOINCREMENT,
+    IdRegalo        INTEGER REFERENCES Regalo(IdRegalo),
+    Estado           VARCHAR(1)  NOT NULL DEFAULT('A'),
+    IdPersonaEnvia  INTEGER REFERENCES Persona(IdPersona),
+    IdPersonaRecibe  INTEGER REFERENCES Persona(IdPersona),
+    IdPersonaReparte    INTEGER REFERENCES Persona(IdPersona),
+    Nombre              TEXT NOT NULL UNIQUE,
+    FechaCrea               DATE DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica            DATE,
+    FechaEnvio              DATE
 );
 
 CREATE TABLE UsuariosSistema (

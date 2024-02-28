@@ -107,7 +107,7 @@ public class RolPanel extends JPanel {
     private void LoginPanel() {
         try {
             removeAll();
-            add(new LoginPanel());
+            add(new LoginUserPanel());
             revalidate();
             repaint();
         } catch (Exception ex) {

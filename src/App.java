@@ -1,4 +1,7 @@
 import java.awt.SplashScreen;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,11 +14,18 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJT
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneLightContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme;
 
+import BusinessLogic.PersonaBL;
+import BusinessLogic.UsuarioSistemaBL;
+import DataAcces.DTO.UsuarioSistemaDTO;
 import UserInterface.Form.MainForm;
 import UserInterface.Form.SplashScreenForm;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        PersonaBL personaNueva = new PersonaBL();
+
+        // personaNueva.update(1, "Isabelx", 1, 3, "1234567");
+
         iniciarSistema();
     }
 
@@ -33,11 +43,26 @@ public class App {
         frame.add(mainForm);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        ImageIcon icon = new ImageIcon("src\\Resource\\Img\\png-transparent-heart-red-heart-thumbnail.png"); // Cambia
-                                                                                                             // la ruta
+        ImageIcon icon = new ImageIcon("src\\Resource\\Img\\png-transparent-heart-red-heart-thumbnail.png");
+        // Cambia
+        // la ruta
         // logo
         frame.setIconImage(icon.getImage());
         frame.setSize(700, 700); // Por ejemplo, tamaño de 400x300 píxeles
         frame.setVisible(true);
+
+        // try {
+        // ArrayList<UsuarioSistemaDTO> usuarios = UsuarioSistemaBL.getUsuario();
+        // System.out.println("Lista de usuarios obtenida:");
+        // for (UsuarioSistemaDTO usuario : usuarios) {
+        // System.out.println(usuario.toString());
+        // if ("1".equals(usuario.toString()))
+        // System.out.println("aa");
+        // ;
+        // }
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
+
     }
 }
