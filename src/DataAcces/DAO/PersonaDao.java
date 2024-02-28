@@ -20,6 +20,7 @@ public class PersonaDao extends SQLiteDataHelper implements IDAO<PersonaDTO> {
     @Override
     public PersonaDTO readBy(Integer id) throws Exception {
         PersonaDTO oS = new PersonaDTO();
+        oS = null;
         String query = " SELECT * FROM Persona WHERE IdPersona =   " + id.toString();
         try {
             Connection conn = openConnection(); // conectar a DB
@@ -88,16 +89,20 @@ public class PersonaDao extends SQLiteDataHelper implements IDAO<PersonaDTO> {
     }
 
     @Override
-    public boolean create(PersonaDTO entity) throws Exception {
-        String query = " INSERT INTO Persona (Nombre) VALUES (?)";
+    public boolean create(PersonaDTO entity)
+            throws Exception {
+        String query = "INSERT INTO Persona (Nombre, IdPersonaRol, IdPersonaSexo, Cedula) VALUES (?, ?, ?, ?)";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, entity.getNombre());
+            pstmt.setInt(2, entity.getIdPersonaRol());
+            pstmt.setInt(3, entity.getIdPersonaSexo());
+            pstmt.setString(4, entity.getCedula());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new Exception();
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -124,7 +129,7 @@ public class PersonaDao extends SQLiteDataHelper implements IDAO<PersonaDTO> {
 
     @Override
     public boolean delete(Integer id) throws Exception {
-        String query = " UPDATE Persona SET Nombre  = ? WHERE IdPersona = ?";
+        String query = " UPDATE Persona SET Estado  = ? WHERE IdPersona = ?";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);

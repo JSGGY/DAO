@@ -16,7 +16,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,6 +33,7 @@ import DataAcces.DTO.PersonaDTO;
 import DataAcces.DTO.RelacionDTO;
 import DataAcces.DTO.RelacionDTO;
 import UserInterface.CustomerControl.SebButton;
+import UserInterface.CustomerControl.SebLabel;
 
 public class AdminPanel extends JPanel {
 
@@ -142,7 +142,7 @@ public class AdminPanel extends JPanel {
         btnEditar.addActionListener(e -> {
             VentanaEditar();
         });
-        // btnEliminar.addActionListener(e -> );
+        btnEliminar.addActionListener(e -> VentanaEliminar());
     }
 
     public void VentanaCrear() {
@@ -151,17 +151,17 @@ public class AdminPanel extends JPanel {
 
         JPanel panerCrear = new JPanel(new GridLayout(5, 2, 5, 5));
 
-        JLabel lblNombre = new JLabel("Nombre:");
+        SebLabel lblNombre = new SebLabel("Nombre:");
         JTextField txtNombre = new JTextField(20);
 
-        JLabel lblCedula = new JLabel("Cédula:");
+        SebLabel lblCedula = new SebLabel("Cédula:");
         JTextField txtCedula = new JTextField(10);
 
-        JLabel lblSexo = new JLabel("Sexo:");
+        SebLabel lblSexo = new SebLabel("Sexo:");
         String[] opcionesSexo = { "Masculino", "Femenino", "Otros" };
         JComboBox<String> cmbSexo = new JComboBox<>(opcionesSexo);
 
-        JLabel lblRol = new JLabel("Rol:");
+        SebLabel lblRol = new SebLabel("Rol:");
         String[] opcionesRol = { "Administrador", "Repartidor", "Usuario" };
         JComboBox<String> cmbRol = new JComboBox<>(opcionesRol);
 
@@ -191,14 +191,41 @@ public class AdminPanel extends JPanel {
             String cedula = txtCedula.getText();
             String sexo = cmbSexo.getSelectedItem().toString();
             String rol = cmbRol.getSelectedItem().toString();
+            Integer numeroRol;
+            if (rol.equals("Administrador")) {
+                numeroRol = 1;
+            } else if (rol.equals("Repartidor")) {
+                numeroRol = 2;
+            } else {
+                numeroRol = 3;
+            }
+            Integer numeroSexo;
+            if (sexo.equals("Masculino")) {
+                numeroSexo = 1;
+            } else if (sexo.equals("Femenino")) {
+                numeroSexo = 2;
+            } else {
+                numeroSexo = 3;
+            }
+            PersonaBL personaNueva = new PersonaBL();
 
-            // Luego puedes realizar las operaciones necesarias con estos datos, como
-            // almacenarlos en la base de datos, etc.
-            // Por ejemplo, imprimirlos en la consola:
-            System.out.println("Nombre: " + nombre);
-            System.out.println("Cédula: " + cedula);
-            System.out.println("Sexo: " + sexo);
-            System.out.println("Rol: " + rol);
+            try {
+                personaNueva.add(nombre, numeroRol, numeroSexo, cedula);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // Cerrar la ventana AdminPanel actual
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            frame.dispose();
+
+            // Crear una nueva instancia de AdminPanel y mostrarla
+            JFrame newFrame = new JFrame("Admin Panel");
+            newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            newFrame.add(new AdminPanel());
+            newFrame.pack();
+            newFrame.setSize(700, 700);
+            newFrame.setVisible(true);
+
         }
     }
 
@@ -206,7 +233,7 @@ public class AdminPanel extends JPanel {
         // Crear un panel para solicitar el ID de la persona a editar
         JPanel panelId = new JPanel();
         JTextField txtId = new JTextField(10);
-        panelId.add(new JLabel("ID de la Persona:"));
+        panelId.add(new SebLabel("ID de la Persona:"));
         panelId.add(txtId);
 
         // Mostrar un diálogo para que el usuario ingrese el ID de la persona a editar
@@ -232,20 +259,20 @@ public class AdminPanel extends JPanel {
                 // necesarios
                 JPanel panel = new JPanel(new GridLayout(5, 2, 5, 5));
 
-                JLabel lblNombre = new JLabel("Nombre:");
+                SebLabel lblNombre = new SebLabel("Nombre:");
                 JTextField txtNombre = new JTextField(persona.getNombre(), 20); // Establecer el nombre de la persona en
                                                                                 // el campo de texto
 
-                JLabel lblCedula = new JLabel("Cédula:");
+                SebLabel lblCedula = new SebLabel("Cédula:");
                 JTextField txtCedula = new JTextField(); // Establecer la cédula de la persona en
                                                          // el campo de texto
 
-                JLabel lblSexo = new JLabel("Sexo:");
+                SebLabel lblSexo = new SebLabel("Sexo:");
                 String[] opcionesSexo = { "Masculino", "Femenino", "Otros" };
                 JComboBox<String> cmbSexo = new JComboBox<>(opcionesSexo);
                 cmbSexo.setSelectedItem(persona.getIdPersonaSexo()); // Establecer el sexo de la persona en el ComboBox
 
-                JLabel lblRol = new JLabel("Rol:");
+                SebLabel lblRol = new SebLabel("Rol:");
                 String[] opcionesRol = { "Administrador", "Repartidor", "Usuario" };
                 JComboBox<String> cmbRol = new JComboBox<>(opcionesRol);
                 cmbRol.setSelectedItem(persona.getIdPersonaRol()); // Establecer el rol de la persona en el ComboBox
@@ -310,6 +337,56 @@ public class AdminPanel extends JPanel {
                     newFrame.setSize(700, 700);
                     newFrame.setVisible(true);
                 }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "El ID ingresado no es válido", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al editar persona", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void VentanaEliminar() {
+        // Crear un panel para solicitar el ID de la persona a editar
+        JPanel panelId = new JPanel();
+        JTextField txtId = new JTextField(10);
+        panelId.add(new SebLabel("ID de la Persona:"));
+        panelId.add(txtId);
+
+        // Mostrar un diálogo para que el usuario ingrese el ID de la persona a editar
+        int opcionId = JOptionPane.showConfirmDialog(null, panelId, "Ingrese el ID de la Persona a Editar",
+                JOptionPane.OK_CANCEL_OPTION);
+
+        // Verificar si se ha presionado "OK" y si se ha ingresado un ID válido
+        if (opcionId == JOptionPane.OK_OPTION && !txtId.getText().isEmpty()) {
+            try {
+                int idPersona = Integer.parseInt(txtId.getText()); // Convertir el texto del campo ID a un entero
+
+                // Obtener la información de la persona a editar usando el ID
+                PersonaDTO persona = PersonaBL.getById(idPersona);
+
+                // Verificar si la persona existe
+                if (persona == null) {
+                    JOptionPane.showMessageDialog(null, "La persona con el ID especificado no existe", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return; // Salir del método si la persona no existe
+                }
+
+                // Crear un nuevo objeto PersonaBL con los valores actualizados
+                PersonaBL personaNueva = new PersonaBL();
+
+                personaNueva.delete(idPersona);
+                // Cerrar la ventana AdminPanel actual
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                frame.dispose();
+
+                // Crear una nueva instancia de AdminPanel y mostrarla
+                JFrame newFrame = new JFrame("Admin Panel");
+                newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                newFrame.add(new AdminPanel());
+                newFrame.pack();
+                newFrame.setSize(700, 700);
+                newFrame.setVisible(true);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "El ID ingresado no es válido", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (Exception e) {

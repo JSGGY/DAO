@@ -11,13 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
+import BusinessLogic.PersonaBL;
 import BusinessLogic.RelacionBL;
+import DataAcces.DTO.PersonaDTO;
 import DataAcces.DTO.RelacionDTO;
 import UserInterface.CustomerControl.SebButton;
 import UserInterface.CustomerControl.SebLabel;
@@ -26,7 +31,6 @@ public class UserPanel extends JPanel {
 
     private Image backgroundImage;
     private SebButton btnRegresar;
-    private SebButton btnCrear;
     private SebButton btnEliminar;
     private SebButton btnEditar;
     private JPanel pnlTabla = new JPanel();
@@ -41,7 +45,6 @@ public class UserPanel extends JPanel {
 
     private void initializeComponents() {
         btnRegresar = new SebButton("Regresar");
-        btnCrear = new SebButton("Crear");
         btnEditar = new SebButton("Editar");
         btnEliminar = new SebButton("Eliminar");
     }
@@ -112,7 +115,6 @@ public class UserPanel extends JPanel {
         // Panel para los botones de manipulacion
         JPanel panelBotonera = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelBotonera.setOpaque(false);
-        panelBotonera.add(btnCrear);
         panelBotonera.add(btnEditar);
         panelBotonera.add(btnEliminar);
         add(panelBotonera, BorderLayout.NORTH);
@@ -126,118 +128,162 @@ public class UserPanel extends JPanel {
 
     private void setupActions() {
         btnRegresar.addActionListener(e -> MainForm());
-        btnCrear.addActionListener(e -> VentanaCrear());
         btnEditar.addActionListener(e -> VentanaEditar());
-    }
-
-    public void VentanaCrear() {
-        // Utiliza JOptionPane para crear una ventana emergente con los componentes
-        // necesarios
-        JPanel panelCrear = new JPanel(new GridLayout(6, 2, 5, 5));
-
-        SebLabel lblIdCita = new SebLabel("ID Cita:");
-        JTextField txtIdCita = new JTextField(10);
-
-        SebLabel lblIdPersona1 = new SebLabel("ID Persona 1:");
-        JTextField txtIdPersona1 = new JTextField(10);
-
-        SebLabel lblIdPersona2 = new SebLabel("ID Persona 2:");
-        JTextField txtIdPersona2 = new JTextField(10);
-
-        SebLabel lblNombreCita = new SebLabel("Nombre Cita:");
-        JTextField txtNombreCita = new JTextField(20);
-
-        panelCrear.add(lblIdCita);
-        panelCrear.add(txtIdCita);
-        panelCrear.add(lblIdPersona1);
-        panelCrear.add(txtIdPersona1);
-        panelCrear.add(lblIdPersona2);
-        panelCrear.add(txtIdPersona2);
-        panelCrear.add(lblNombreCita);
-        panelCrear.add(txtNombreCita);
-
-        // Mostrar la ventana emergente de entrada con los componentes
-        int opcion = JOptionPane.showConfirmDialog(null, panelCrear, "Crear Cita", JOptionPane.OK_CANCEL_OPTION);
-
-        // Verificar si se ha presionado "OK"
-        if (opcion == JOptionPane.OK_OPTION) {
-            // Verificar que los campos no estén vacíos
-            if (txtIdCita.getText().isEmpty() || txtIdPersona1.getText().isEmpty() ||
-                    txtIdPersona2.getText().isEmpty() || txtNombreCita.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método sin procesar los datos
-            }
-
-            // Aquí puedes procesar los datos ingresados por el usuario
-            int idCita = Integer.parseInt(txtIdCita.getText());
-            int idPersona1 = Integer.parseInt(txtIdPersona1.getText());
-            int idPersona2 = Integer.parseInt(txtIdPersona2.getText());
-            String nombreCita = txtNombreCita.getText();
-
-            // Luego puedes realizar las operaciones necesarias con estos datos, como
-            // almacenarlos en la base de datos, etc.
-            // Por ejemplo, imprimirlos en la consola:
-            System.out.println("ID Cita: " + idCita);
-            System.out.println("ID Persona 1: " + idPersona1);
-            System.out.println("ID Persona 2: " + idPersona2);
-            System.out.println("Nombre Cita: " + nombreCita);
-        }
+        btnEliminar.addActionListener(e -> VentanaEliminar());
     }
 
     public void VentanaEditar() {
         // Utiliza JOptionPane para crear una ventana emergente con los componentes
         // necesarios
-        JPanel panelEditar = new JPanel(new GridLayout(6, 2, 5, 5));
+        JPanel panelIdRelacion = new JPanel();
+        JTextField txtIdRelacion = new JTextField(10);
+        panelIdRelacion.add(new SebLabel("ID de la Relación a Editar:"));
+        panelIdRelacion.add(txtIdRelacion);
 
-        SebLabel lblIdCita = new SebLabel("ID Cita:");
-        JTextField txtIdCita = new JTextField(10);
+        // Mostrar un diálogo para que el usuario ingrese el ID de la relación a editar
+        int opcionId = JOptionPane.showConfirmDialog(null, panelIdRelacion, "Ingrese el ID de la Relación a Editar",
+                JOptionPane.OK_CANCEL_OPTION);
 
-        SebLabel lblIdPersona1 = new SebLabel("ID Persona 1:");
-        JTextField txtIdPersona1 = new JTextField(10);
+        // Verificar si se ha presionado "OK" y si se ha ingresado un ID válido
+        if (opcionId == JOptionPane.OK_OPTION && !txtIdRelacion.getText().isEmpty()) {
+            try {
+                Integer idRelacion = Integer.parseInt(txtIdRelacion.getText()); // Convertir el texto del campo ID a un
+                // entero
 
-        SebLabel lblIdPersona2 = new SebLabel("ID Persona 2:");
-        JTextField txtIdPersona2 = new JTextField(10);
+                // Obtener la información de la relación a editar usando el ID
+                // Aquí debes obtener los datos de la relación correspondiente a idRelacion
+                // desde tu base de datos
 
-        SebLabel lblNombreCita = new SebLabel("Nombre Cita:");
-        JTextField txtNombreCita = new JTextField(20);
+                // Verificar si la relación existe
+                // Si no existe, muestra un mensaje de error y termina el método
 
-        panelEditar.add(lblIdCita);
-        panelEditar.add(txtIdCita);
-        panelEditar.add(lblIdPersona1);
-        panelEditar.add(txtIdPersona1);
-        panelEditar.add(lblIdPersona2);
-        panelEditar.add(txtIdPersona2);
-        panelEditar.add(lblNombreCita);
-        panelEditar.add(txtNombreCita);
+                RelacionDTO relacionDTO = RelacionBL.getBy(idRelacion);
+                int idRelacionTipo = relacionDTO.getIdRelacioTipo();
+                int idPersona1 = relacionDTO.getIdPersona1();
+                int idPersona2 = relacionDTO.getIdPersona2();
 
-        // Mostrar la ventana emergente de entrada con los componentes
-        int opcion = JOptionPane.showConfirmDialog(null, panelEditar, "Editar Cita", JOptionPane.OK_CANCEL_OPTION);
+                // Utiliza JOptionPane para crear una ventana emergente con los componentes
+                // necesarios
+                JPanel panelEditar = new JPanel(new GridLayout(5, 2, 5, 5));
 
-        // Verificar si se ha presionado "OK"
-        if (opcion == JOptionPane.OK_OPTION) {
-            // Verificar que los campos no estén vacíos
-            if (txtIdCita.getText().isEmpty() || txtIdPersona1.getText().isEmpty() ||
-                    txtIdPersona2.getText().isEmpty() || txtNombreCita.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método sin procesar los datos
+                SebLabel lblIdRelacionTipo = new SebLabel("Tipo de Relación:");
+                // Crear JComboBox para elegir el tipo de relación
+                JComboBox<String> cmbTipoRelacion = new JComboBox<>(
+                        new String[] { "Familiar", "Amistad", "Sentimental" });
+                cmbTipoRelacion.setSelectedIndex(idRelacionTipo - 1); // Seleccionar el índice correspondiente al tipo
+                                                                      // de relación
+
+                SebLabel lblIdPersona1 = new SebLabel("ID Persona 1:");
+                JTextField txtIdPersona1Edit = new JTextField(String.valueOf(idPersona1), 10); // Campo autollenado con
+                                                                                               // el ID de la persona 1
+
+                SebLabel lblIdPersona2 = new SebLabel("ID Persona 2:");
+                JTextField txtIdPersona2Edit = new JTextField(String.valueOf(idPersona2), 10); // Campo autollenado con
+                                                                                               // el ID de la persona 2
+
+                panelEditar.add(lblIdRelacionTipo);
+                panelEditar.add(cmbTipoRelacion);
+                panelEditar.add(lblIdPersona1);
+                panelEditar.add(txtIdPersona1Edit);
+                panelEditar.add(lblIdPersona2);
+                panelEditar.add(txtIdPersona2Edit);
+
+                // Mostrar la ventana emergente de edición con los campos autollenados
+                int opcion = JOptionPane.showConfirmDialog(null, panelEditar, "Editar Relación",
+                        JOptionPane.OK_CANCEL_OPTION);
+
+                // Verificar si se ha presionado "OK"
+                if (opcion == JOptionPane.OK_OPTION) {
+                    if (txtIdPersona1Edit.getText().isEmpty() || txtIdPersona2Edit.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Los campos Nombre y Cédula no pueden estar vacíos",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return; // Salir del método sin procesar los datos
+                    }
+                    Integer idPersona1Nuevo = Integer.parseInt(txtIdPersona1Edit.getText());
+                    Integer idPersona2Nuevo = Integer.parseInt(txtIdPersona2Edit.getText());
+                    Integer intIdRelacionTipo;
+                    String stringIdRelacion = cmbTipoRelacion.getSelectedItem().toString();
+
+                    if (stringIdRelacion.equals("Familiar")) {
+                        intIdRelacionTipo = 1;
+                    } else if (stringIdRelacion.equals("Amistad")) {
+                        intIdRelacionTipo = 2;
+                    } else {
+                        intIdRelacionTipo = 3;
+                    } // Crear un nuevo objeto RelacionBL con los valores actualizados
+                    RelacionBL relacionEditada = new RelacionBL();
+
+                    relacionEditada.update(idRelacion, intIdRelacionTipo, idPersona1Nuevo, idPersona2Nuevo);
+                    // Cerrar la ventana AdminPanel actual
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    frame.dispose();
+
+                    // Crear una nueva instancia de AdminPanel y mostrarla
+                    JFrame newFrame = new JFrame("User Panel");
+                    newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    newFrame.add(new UserPanel());
+                    newFrame.pack();
+                    newFrame.setSize(700, 700);
+                    newFrame.setVisible(true);
+
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "El ID ingresado no es válido", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al editar relación", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            // Aquí puedes procesar los datos ingresados por el usuario
-            int idCita = Integer.parseInt(txtIdCita.getText());
-            int idPersona1 = Integer.parseInt(txtIdPersona1.getText());
-            int idPersona2 = Integer.parseInt(txtIdPersona2.getText());
-            String nombreCita = txtNombreCita.getText();
-
-            // Luego puedes realizar las operaciones necesarias con estos datos, como
-            // actualizarlos en la base de datos, etc.
-            // Por ejemplo, imprimirlos en la consola:
-            System.out.println("ID Cita: " + idCita);
-            System.out.println("ID Persona 1: " + idPersona1);
-            System.out.println("ID Persona 2: " + idPersona2);
-            System.out.println("Nombre Cita: " + nombreCita);
         }
+    }
+
+    public void VentanaEliminar() {
+        // Utiliza JOptionPane para crear una ventana emergente con los componentes
+        // necesarios
+        JPanel panelIdRelacion = new JPanel();
+        JTextField txtIdRelacion = new JTextField(10);
+        panelIdRelacion.add(new SebLabel("ID de la Relación a Eliminar:"));
+        panelIdRelacion.add(txtIdRelacion);
+
+        // Mostrar un diálogo para que el usuario ingrese el ID de la relación a editar
+        int opcionId = JOptionPane.showConfirmDialog(null, panelIdRelacion, "Ingrese el ID de la Relación a Editar",
+                JOptionPane.OK_CANCEL_OPTION);
+
+        // Verificar si se ha presionado "OK" y si se ha ingresado un ID válido
+        if (opcionId == JOptionPane.OK_OPTION && !txtIdRelacion.getText().isEmpty()) {
+            try {
+                Integer idRelacion = Integer.parseInt(txtIdRelacion.getText());
+
+                RelacionDTO relacionDTO = RelacionBL.getBy(idRelacion);
+                if (relacionDTO == null) {
+                    System.out.println("no hay");
+                    JOptionPane.showMessageDialog(null, "La relacion con el ID especificado no existe", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return; // Salir del método si la persona no existe
+                }
+
+                RelacionBL relacionElimiar = new RelacionBL();
+
+                relacionElimiar.delete(idRelacion);
+                // Cerrar la ventana AdminPanel actual
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                frame.dispose();
+
+                // Crear una nueva instancia de AdminPanel y mostrarla
+                JFrame newFrame = new JFrame("User Panel");
+                newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                newFrame.add(new UserPanel());
+                newFrame.pack();
+                newFrame.setSize(700, 700);
+                newFrame.setVisible(true);
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "El ID ingresado no es válido", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al editar relación", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }
 
     private void MainForm() {

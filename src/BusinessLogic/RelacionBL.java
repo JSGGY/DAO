@@ -7,7 +7,7 @@ import DataAcces.DAO.RelacionDao;
 import DataAcces.DTO.RelacionDTO;
 
 public class RelacionBL {
-    private RelacionDTO relacion;
+    private static RelacionDTO relacion;
     private static RelacionDao relacionDao = new RelacionDao();
 
     public RelacionBL() {
@@ -17,7 +17,7 @@ public class RelacionBL {
         return relacionDao.readAll();
     }
 
-    public RelacionDTO getBy(int IdRelacion) throws Exception {
+    public static RelacionDTO getBy(int IdRelacion) throws Exception {
         relacion = relacionDao.readBy(IdRelacion);
         return relacion;
     }

@@ -18,6 +18,7 @@ public class RelacionDao extends SQLiteDataHelper implements IDAO<RelacionDTO> {
     @Override
     public RelacionDTO readBy(Integer id) throws Exception {
         RelacionDTO oS = new RelacionDTO();
+        oS = null;
         String query = "SELECT * FROM Relacion WHERE IdRelacion = " + id.toString();
         try {
             Connection conn = openConnection(); // conectar a DB
@@ -70,18 +71,21 @@ public class RelacionDao extends SQLiteDataHelper implements IDAO<RelacionDTO> {
     public boolean update(RelacionDTO entity) throws Exception {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        String query = " UPDATE RelacionDTO SET Estado = ?, FechaModifica = ? WHERE IdRelacion = ?";
+        String query = "UPDATE Relacion SET IdRelacionTipo = ?, IdPersona1 = ?, IdPersona2 = ?, FechaModifica = ? WHERE IdRelacion = ?";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, entity.getEstado());
-            pstmt.setString(2, dtf.format(now).toString());
-            pstmt.setInt(3, entity.getIdRelacion());
+            pstmt.setInt(1, entity.getIdRelacioTipo());
+            pstmt.setInt(2, entity.getIdPersona1());
+            pstmt.setInt(3, entity.getIdPersona2());
+            pstmt.setString(4, dtf.format(now).toString());
+            pstmt.setInt(5, entity.getIdRelacion());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new Exception();
+            throw new Exception("Error al ejecutar la consulta SQL: " + e.getMessage(), e);
         }
+
     }
 
     @Override
