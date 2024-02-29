@@ -1,3 +1,11 @@
+
+/**
+/*-------------------------------------------------------------\
+|  Copyright (©) 2K24 EPN-FIS. All rights reserved.            |
+|  sebastian.sarasti01@epn.edu.ec PROPRIETARY/CONFIDENTIAL.    |
+|  Use is subject to license terms.       Sebastian Sarasti    |
+\--------------------------------------------------------------\
+ */
 import java.awt.SplashScreen;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,6 +57,7 @@ public class App {
         // logo
         frame.setIconImage(icon.getImage());
         frame.setSize(700, 700); // Por ejemplo, tamaño de 400x300 píxeles
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         // try {

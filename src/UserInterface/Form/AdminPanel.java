@@ -1,3 +1,10 @@
+/**
+/*-------------------------------------------------------------\
+|  Copyright (©) 2K24 EPN-FIS. All rights reserved.            |
+|  sebastian.sarasti01@epn.edu.ec PROPRIETARY/CONFIDENTIAL.    |
+|  Use is subject to license terms.       Sebastian Sarasti    |
+\--------------------------------------------------------------\
+ */
 package UserInterface.Form;
 
 import java.awt.BorderLayout;
@@ -224,6 +231,8 @@ public class AdminPanel extends JPanel {
             newFrame.add(new AdminPanel());
             newFrame.pack();
             newFrame.setSize(700, 700);
+            frame.setLocationRelativeTo(null);
+
             newFrame.setVisible(true);
 
         }
@@ -335,6 +344,8 @@ public class AdminPanel extends JPanel {
                     newFrame.add(new AdminPanel());
                     newFrame.pack();
                     newFrame.setSize(700, 700);
+                    frame.setLocationRelativeTo(null);
+
                     newFrame.setVisible(true);
                 }
             } catch (NumberFormatException e) {
@@ -386,6 +397,8 @@ public class AdminPanel extends JPanel {
                 newFrame.add(new AdminPanel());
                 newFrame.pack();
                 newFrame.setSize(700, 700);
+                frame.setLocationRelativeTo(null);
+
                 newFrame.setVisible(true);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "El ID ingresado no es válido", "Error", JOptionPane.ERROR_MESSAGE);

@@ -1,3 +1,10 @@
+/**
+/*-------------------------------------------------------------\
+|  Copyright (©) 2K24 EPN-FIS. All rights reserved.            |
+|  sebastian.sarasti01@epn.edu.ec PROPRIETARY/CONFIDENTIAL.    |
+|  Use is subject to license terms.       Sebastian Sarasti    |
+\--------------------------------------------------------------\
+ */
 package UserInterface.Form; // Define el paquete donde se encuentra la clase LoginPanel
 
 import java.awt.BorderLayout;
@@ -24,9 +31,7 @@ public class RepartidorPanel extends JPanel {
 
     private Image backgroundImage;
     private SebButton btnRegresar;
-    private SebButton btnCrear;
-    private SebButton btnEliminar;
-    private SebButton btnEditar;
+
     private JPanel pnlTabla = new JPanel();
 
     public RepartidorPanel() {
@@ -40,9 +45,7 @@ public class RepartidorPanel extends JPanel {
     private void initializeComponents() {
 
         btnRegresar = new SebButton("Regresar");
-        btnCrear = new SebButton("Crear");
-        btnEditar = new SebButton("Editar");
-        btnEliminar = new SebButton("Eliminar");
+
     }
 
     private void showEnviosTabla() {
@@ -113,12 +116,7 @@ public class RepartidorPanel extends JPanel {
         panelTablaCentral.add(pnlTabla);
         add(panelTablaCentral, BorderLayout.CENTER);
         // Panel para los botones de manipulacion
-        JPanel panelBotonera = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBotonera.setOpaque(false);
-        panelBotonera.add(btnCrear);
-        panelBotonera.add(btnEditar);
-        panelBotonera.add(btnEliminar);
-        add(panelBotonera, BorderLayout.NORTH);
+
         // Panel para el botón "Regresar"
         JPanel panelRegresar = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelRegresar.setOpaque(false);
